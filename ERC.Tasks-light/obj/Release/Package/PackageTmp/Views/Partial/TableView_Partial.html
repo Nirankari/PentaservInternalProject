@@ -1,0 +1,71 @@
+﻿
+    <md-card class="table-responsive">
+        <table class="table table-condensed">
+            <thead>
+                <tr style="background-color:#55c4e8;">
+                    <th style="width: 20%" data-ng-click="sort100('TaskName')">
+                        <font color="white">
+                            TaskName
+                        </font>
+                        <span class="glyphicon sort-icon" data-ng-show="sortKey=='TaskName'" data-ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th style="width: 44%" data-ng-click="sort100('task.TaskDesc')">
+                        <font color="white">
+                            Description
+                        </font>
+                        <span class="glyphicon sort-icon" data-ng-show="sortKey=='TaskDesc'" data-ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th style="width: 10%" data-ng-click="sort100('task.RecurrencePattern')">
+                        <font color="white">
+                            R.Pattern
+                        </font>
+                        <span class="glyphicon sort-icon" data-ng-show="sortKey=='RecurrencePattern'" data-ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+
+                    <th style="width: 15%" data-ng-click="sort100('CreatedDate')">
+                        <font color="white">
+                            C. Date
+                        </font>
+                        <span class="glyphicon sort-icon" data-ng-show="sortKey=='CreatedDate'" data-ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th style="width: 10%"><font color="white">Actions</font></th>
+                </tr>
+            </thead>
+
+            <tr>
+                <td colspan="5">
+                    <table class="table  table-hover no-margin" data-ng-repeat="tt in ERC.Tasks | filter:FilterCriteriaCardView | orderBy:columnToOrder:reverse">
+                        <tr>
+                            <td data-ng-style="isCurrentDateChangeColor(tt.TaskDueDate)" data-toggle="collapse" data-target="#coll{{tt.TaskId}}" class="clickable" style="width:20%" ><span ng-show="tt.Customer!= null" >{{tt.Customer}} -</span>{{tt.TaskName}}</td>
+                            <td data-ng-style="isCurrentDateChangeColor(tt.TaskDueDate)" data-toggle="collapse" data-target="#coll{{tt.TaskId}}" class="clickable" style="width:44%">{{tt.TaskDesc}}</td>
+                            <td data-ng-style="isCurrentDateChangeColor(tt.TaskDueDate)" data-toggle="collapse" data-target="#coll{{tt.TaskId}}" class="clickable" style="width:10%">{{tt.RecurrencePattern}}</td>
+                            <td data-ng-style="isCurrentDateChangeColor(tt.TaskDueDate)" data-toggle="collapse" data-target="#coll{{tt.TaskId}}" class="clickable" style="width:15%">{{tt.CreatedDate | date : 'MM-dd-yyyy'}}</td>
+
+                            <td style="width:15%" class="hidden-phone">
+                                <div class="md-actions" layout="row" layout-align="end center">
+
+                                    <md-button class="card-action" title="Task Assignment" data-toggle="modal" data-ng-click="fnPopAssign(tt.TaskId)"
+                                               data-target="#TaskAssignment" aria-label="Task Assignment">
+                                        <data-ng-md-icon icon="assignment" style="fill:#55c4e8"></data-ng-md-icon>
+                                    </md-button>
+                                    <md-button class="card-action" title="Task Detail" data-toggle="modal" data-ng-click="fnCalendatTaskDetail(tt.TaskId, '2')"
+                                               data-target="#TaskCalendarDetail" aria-label="Task Details">
+                                        <data-ng-md-icon icon="filter" style="fill:#55c4e8"></data-ng-md-icon>
+                                    </md-button>
+                                    <md-button class="card-action" title="Edit Task" data-toggle="modal" data-ng-click="GetTaskDetail(tt.TaskId)"
+                                               data-target="#TaskEdit" aria-label="Edit Task">
+                                        <data-ng-md-icon icon="create" style="fill:#55c4e8"></data-ng-md-icon>
+                                    </md-button>
+                                    <md-button class="card-action" title="Delete Task" data-ng-show="UserModel.UserRole == 'admin' || UserModel.UserRole == 'manager'" data-ng-click="fnPopId(tt.Task_ID, '0')"
+                                               data-toggle="modal" data-target="#TaskDelete" aria-label="Delete Task">
+                                        <data-ng-md-icon icon="backspace" style="fill:#55c4e8"></data-ng-md-icon>
+                                    </md-button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr></tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </md-card>

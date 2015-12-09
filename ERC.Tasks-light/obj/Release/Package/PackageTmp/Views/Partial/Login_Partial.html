@@ -1,0 +1,34 @@
+﻿<form id="form100" name="form100" role="form" novalidate>
+    <div class="row">
+        <div class="col-md-2">UserName</div>
+        <div class="col-md-10">
+             <div class="form-group" data-ng-class="{ 'has-error': form100.username.$error.required }" style="padding:20px !important;">
+            <span >
+                <input class="form-control col-md-9" style="width:95%;" placeholder="username" type="text" name="username" data-ng-trim="false" data-ng-change="Login.userName = Login.userName.split(' ').join('')"
+                       data-ng-model="Login.userName" data-ng-required="true" data-ng-enter="Login()" />
+            </span>
+            <span data-ng-show="form100.username.$error.required" style="width:1%;float:left !important;">*</span>
+        </div>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col-md-2">Password</div>
+        <div class="col-md-10">
+            
+        <div class="form-group" data-ng-class="{ 'has-error': form100.password.$error.required }" style="padding:20px !important;">
+            <span > <input class="form-control col-md-9" style="width:95%" placeholder="password" name="password" type="password"
+       data-ng-model="Login.password" data-ng-required="true" data-ng-enter="Login()" /></span>
+            <span data-ng-show="form100.password.$error.required" style="width:1%;float:left !important;">*</span>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+       <div class="col-md-2"> </div>
+        <div class="col-md-2">
+         &nbsp;&nbsp;&nbsp;   <button class="btn btn-lg btn-default" data-ng-disabled="form100.$invalid" data-ng-click="Login()">Login</button> </div>
+        <div class="col-md-8">
+            <font color="red"> <h4> {{UserStatus}}</h4></font>
+        </div>
+        </div>
+       
+    </form>

@@ -1,0 +1,10 @@
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\SLARedLight\bin\Debug\SLARedLight.exe.config
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\SLARedLight\bin\Debug\SLARedLight.exe
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\SLARedLight\bin\Debug\SLARedLight.pdb
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\SLARedLight\bin\Debug\Domain.dll
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\SLARedLight\bin\Debug\Domain.pdb
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\SLARedLight\bin\Debug\Dapper.pdb
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\SLARedLight\bin\Debug\Dapper.xml
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\SLARedLight\obj\Debug\SLARedLight.csprojResolveAssemblyReference.cache
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\SLARedLight\obj\Debug\SLARedLight.exe
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\SLARedLight\obj\Debug\SLARedLight.pdb

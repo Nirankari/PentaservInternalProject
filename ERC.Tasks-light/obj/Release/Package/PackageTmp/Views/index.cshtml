@@ -1,0 +1,866 @@
+﻿<!DOCTYPE html>
+
+<html data-ng-app="tasksApp">
+<head>
+<style>
+a:hover {
+    background-color:#dae2dc;
+    
+}
+
+</style>
+    <title>index</title>
+    <script src="/Scripts/jquery.min.js"></script>
+    <link href="/Content/angular-material/angular-material.min.css" rel="stylesheet" />
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script src="/Scripts/angular.js"></script>
+
+    <script src="/Content/js/main.js"></script>
+
+    <script src="/Content/js/controllers/Services.js"></script>
+
+    <script src="/Content/js/controllers/cardsViewController.js"></script>
+
+    <script src="/Scripts/angular-sanitize.js"></script>
+    <script src="/Scripts/angular-resource.min.js"></script>
+    <script src="/Scripts/angular-material.min.js"></script>
+    <script src="/Scripts/angular-animate.min.js"></script>
+    <script src="/Scripts/angular-aria.min.js"></script>
+    <script src="/Scripts/angular-messages.js"></script>
+    <script src="/Scripts/angular-material-icons.min.js"></script>
+
+    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/bootstrap_theme.min.css" rel="stylesheet" />
+    <link href="/Content/smoothnessjquery-ui-1.11.4.css" rel="stylesheet" />
+    <script src="/Scripts/moment.min.js"></script>
+    <script src="/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <link href="/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/Content/css/erc.css" rel="stylesheet" />
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/respond.js"></script>
+
+    <script>
+        $(function () {
+            var dd = new Date();
+            $("#duedate").datepicker();
+            $("#subduedate1").datepicker();
+            $("#startdate").datepicker();
+            $("#startdate1").datepicker();
+            $("#startdate2").datepicker();
+            $("#startdate4").datepicker();
+            $("#subduedate4").datepicker();
+            $("#subduedate5").datepicker();
+            $("#subduedate6").datepicker();
+
+        });
+    </script>
+    <style>
+        .cb:hover {
+            color: blue;
+            border: rgba(24, 99, 252, 0.85) solid 2px;
+        }
+
+        .cb2:hover {
+            border: rgba(24, 99, 252, 0.85) solid 1px;
+        }
+
+        .cb1:hover {
+            border: red solid 2px;
+        }
+
+
+        body .modal-admin {
+            /* new custom width */
+            width: 750px;
+            /* must be half of the width, minus scrollbar on the left (30px) */
+            margin-left: 400px; 
+        }
+    </style>
+
+</head>
+<body ng-app="tasksApp" data-ng-controller="cardsViewController">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+
+                <a class="navbar-brand" href="#"><img src="/Content/images/PLogo.png" style="width:130px;"  /> </a>
+
+            </div>
+            <div style="float: right; color: white; opacity: 0.8;">
+                <div data-ng-if="ERC_Load.loading"><i class="fa fa-spin fa-refresh fa-3x"></i></div>
+            </div>
+            <div style="float: right; color: white; vertical-align: text-bottom; text-align:right;padding:5px;">
+ <p  data-ng-show="UserModel.UserId !=null" ><b>Welcome&nbsp; {{DisplayName}}</b></p>
+ <b><a href="" data-ng-click="logoutUser()" data-ng-show="UserModel.UserId !=null">Logout</a></b>&nbsp;&nbsp; <b><a href="#" data-toggle="modal" data-target="#ModelRegister" data-ng-show="UserModel.UserRole == 'admin' || UserModel.UserRole == 'manager'">Register</a></b>
+             </div>
+            
+         
+        </div>
+    </div>
+
+    <div class="container body-content">
+
+        <div class="jumbotron">
+            <h1>PentaServ Task </h1>
+            <div class="row">
+                <p>
+                    <button type="button" data-toggle="modal" data-target="#myModal" data-ng-show="UserModel.UserId !=null" class="btn btn-info btn-lg">Create Task</button>
+                </p>
+            </div>
+            <div class="form-group" data-ng-show="UserModel.UserId ==null" data-ng-include="'Views/Partial/Login_Partial.html'">
+            </div>
+        </div>
+
+        <div class="row" data-ng-show="UserModel.UserId !=null" style="padding: 10px;">
+            <div class="form-group col-md-5">
+                <input type="text" class="form-control  glyphicon glyphicon-search" placeholder="Enter Task Name" id="txtName" data-ng-model="Title" style="height: 45px; padding-left: 10px;">
+            </div>
+
+            <div class="col-md-5 btn-group">
+                <button id="a1" class="btn btn-lg btn-info" onclick="fnView('a1')">Card View</button>
+                <button id="a2" class="btn btn-lg btn-default " onclick="fnView('a2')">Table View</button>
+                <button id="a3" class="btn btn-lg btn-default" onclick="fnView('a3')" data-ng-click="clkArrow('0')">Calendar View</button>
+
+            </div>
+            <div class="col-md-2" align="left">
+
+                <button class="btn btn-primary" title="Check Off Users" data-ng-show="UserModel.UserRole == 'admin' || UserModel.UserRole == 'manager'" data-toggle="modal" style="height: 35px;"
+                    data-target="#ModelCheckOff" aria-label="Check Off Users">
+                    Check Off <span class="badge">{{countUsers.count}}</span>
+                </button>
+            </div>
+        </div>
+
+
+        <div class="clearfix"></div>
+        <!--*******************************Card View  start-->
+        <div id="CardView" data-ng-show="UserModel.UserId !=null" data-ng-include="'Views/Partial/CardView_Partial.html'">
+        </div>
+        <!--Card View End-->
+        <!-- *************************************************Table View start****************************************************-->
+        <div id="TableView" style="display: none;" data-ng-show="UserModel.UserId !=null" data-ng-include="'Views/Partial/TableView_Partial.html'">
+        </div>
+        <!-- *************************************************Table View end****************************************************-->
+        <div class="clearfix"></div>
+        <!-- *************************************************Calendar View start****************************************************-->
+        <div id="CalendarView" style="display: none;" data-ng-show="UserModel.UserId !=null">
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <button id="b1" class="btn btn-lg btn-info" onclick="fnMakeActive('b1')">Day View</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="b2" class="btn btn-lg btn-default" onclick="fnMakeActive('b2')">Week View</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="b3" class="btn btn-lg btn-default" onclick="fnMakeActive('b3')">Month View</button>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <!-- *************************************************Day View start****************************************************-->
+            <div id="DayView" style="display: block;" data-ng-include="'Views/Partial/DayView_Partial.html'">
+            </div>
+            <!-- *************************************************Day View End****************************************************-->
+            <div class="clearfix"></div>
+            <!-- *************************************************Week View start****************************************************-->
+            <div id="WeekView" style="display: none;" data-ng-include="'Views/Partial/WeekView_Partial.html'">
+            </div>
+            <!-- *************************************************Week View End****************************************************-->
+            <div class="clearfix"></div>
+            <!-- *************************************************Month View start****************************************************-->
+            <div id="MonthView" style="display: none;" data-ng-include="'Views/Partial/MonthView_Partial.html'">
+                <div class="clearfix"></div>
+            </div>
+            <!-- *************************************************Month View end****************************************************-->
+        </div>
+
+        <!-- *************************************************Calendar  View end****************************************************-->
+
+    </div>
+    <!-- Modal for register -->
+    <div class="modal fade" id="ModelRegister" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #55c4e8;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><font color="white"><b>Registration</b></font></h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <form id="form101" name="form101" role="form" novalidate>
+                <div class="row">
+                    <div class="col-md-3">UserName</div>
+                        <div class="col-md-9">
+                            <div class="form-group" data-ng-class="{ 'has-error': form101.UserName.$error.required }" >
+                                <span >
+                                   <input class="form-control"  data-ng-change="RestrictWhiteSpace()"  placeholder="Name" type="text" name="UserName"
+                                        data-ng-model="Register.UserName" data-ng-required="true"  />
+                                </span>
+                                <span data-ng-show="form101.UserName.$error.required" style="width: 1%; float: left !important;">*</span>
+                                <span><font color="red">&nbsp; {{ userAvailabe }}</font></span>
+                            </div>
+                            </div>
+
+                        </div>
+
+                    <div class="row">
+                    <div class="col-md-3">DisplayName</div>
+                        <div class="col-md-9">
+                            <div class="form-group" data-ng-class="{ 'has-error': form101.DisplayName.$error.required }" >
+                                <span >
+                                    <input class="form-control"  placeholder="DisplayName" type="text" name="DisplayName"
+                                        data-ng-model="Register.DisplayName" data-ng-required="true"  />
+                                </span>
+                                <span data-ng-show="form101.DisplayName.$error.required" style="width: 1%; float: left !important;">*</span>
+                            </div>
+                            </div>
+
+                        </div>
+                      <div class="row">
+                    <div class="col-md-3">Email</div>
+                        <div class="col-md-9">
+                               <div class="form-group" data-ng-class="{ 'has-error': form101.Email.$error.required  }" >
+                                <span >
+                                     <input class="form-control" type="email" id="email"  placeholder="Email" name="email" data-ng-model="Register.Email" required/>
+   
+                                </span>
+                              <span data-ng-show="form101.email.$error.required && form101.email.$dirty" style="width: 1%; float: left !important;">*</span>
+                            <span data-ng-show="!form101.email.$error.required && form101.email.$error.email && form101.email.$dirty" style="width: 25%; float: left !important;">Invalid email</span>
+                            </div>
+                            </div>
+
+                        </div>
+
+                      <div class="row">
+                    <div class="col-md-3">Password</div>
+                        <div class="col-md-9">
+                                <div class="form-group" data-ng-class="{ 'has-error': form101.Password.$error.required }" >
+                                <span >
+                                    <input class="form-control "   type="Password" name="Password"
+                                        data-ng-model="Register.Password" data-ng-required="true"  />
+                                </span>
+                                <span data-ng-show="form101.Password.$error.required" style="width: 1%; float: left !important;">*</span>
+                            </div>
+                            </div>
+
+                        </div>
+
+                    
+                      <div class="row">
+                    <div class="col-md-3">Role</div>
+                        <div class="col-md-9">
+                                <div class="form-group" data-ng-class="{ 'has-error': form101.Role.$error.required }" >
+                                <span >
+                                    <select class="form-control" id="Role" data-ng-model="Register.UserRole" name="Role"
+                                        data-ng-options="r1.Name as r1.Name for r1 in Roles" data-ng-init="Register.UserRole='user'">
+                                    </select>
+                                 <span data-ng-show="form101.Role.$error.required" style="width: 1%; float: left !important;">*</span>
+                            </div>
+                            </div>
+
+                        </div>
+
+
+                        <div>
+
+                           
+                           <div class="row">
+                            <div class="col-md-12" align="right">  
+                <button type="button" style="background-color: #55c4e8;" class="btn  btn-default" data-dismiss="modal">Cancel</button>
+                <button style="background-color: #55c4e8;" class="btn btn-default" data-ng-disabled="form101.$invalid" ng-click="CreateUser()">Register</button></div>
+                           </div>
+                          
+                          
+                           
+                            
+                          
+                        </div>
+                    </form>
+
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for check off -->
+    <div class="modal fade" id="ModelCheckOff" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #55c4e8;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><font color="white"><b>Check Off Users</b></font></h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <div style="overflow: scroll; height: 400px;">
+                        <div class="col-md-6" ng-repeat="user in UsersList">
+
+
+                            <label>
+                                <input type="checkbox" ng-model="selected[$index]" data-ng-true-value="{{user.UserId}}" data-ng-false-value="0"
+                                    data-ng-checked="AdminUser.indexOf(user.UserId)> -1" ng-click="toggleSelection(user.UserId)" />
+                                &nbsp; {{user.DisplayName}}
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal" data-ng-click="SaveAdminUsers()">Save</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for check off -->
+    <!-- *********************************create task Modal Start************************************************************************************** -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false" data-keyboard="false">
+        <form name="form" role="form">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #55c4e8;">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><font color="white"><b>Create Task</b></font></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <p class="form-group" data-ng-class="{ 'has-error': form.txtTitle.$error.required }">
+                                <div class="col-md-4">
+                                    Task Title
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" name="ercTaskTitle" class="form-control" id="txtTitle" data-ng-required="true"
+                                        placeholder="Enter Task title" data-ng-model="TaskModal.ercTaskTitle" tooltip="Enter Title" />
+                                    <span data-ng-show="form.ercTaskTitle.$error.required" class="alert alert-warning" style="padding: 0px !important;">Task title is required</span>
+                                </div>
+
+                            </p>
+                        </div>
+                       
+                        <div class="row">
+
+                            <p class="form-group " data-ng-class="{ 'has-error': form.ercTaskDesc.$error.required }">
+                                <div class="col-md-12">
+                                    <textarea class="form-control col-md-12" id="txtDesc" name="ercTaskDesc" data-ng-required="true" placeholder="Enter Task Description"
+                                        data-ng-model="TaskModal.ercTaskDesc" cols="250" rows="5"></textarea>
+                                    <span data-ng-show="form.ercTaskDesc.$error.required" class="alert alert-warning" style="padding: 0px !important;">Task description is required</span>
+                                </div>
+                            </p>
+                        </div>
+
+                        <div class="row">
+                            <p class="form-group ">
+
+                                <div class="col-md-6">
+                                    Recurrence Pattern
+                                </div>
+                                <div class="col-md-4">
+
+                                    <select class="form-control" id="RecurrencePattern" data-ng-model="TaskModal.RecurrencePattern"
+                                        data-ng-options="r1.Name as r1.Name for r1 in Pattern" data-ng-init="TaskModal.RecurrencePattern='Daily'">
+                                    </select>
+
+
+                                </div>
+                            </p>
+                        </div>
+                        <div class="row">
+                            <p class="form-group ">
+
+                                <div class="col-md-6">
+                                    Recurrence Business Day Step
+                                </div>
+
+                                <div class="col-md-4">
+                                    <select class="form-control" id="RecurrenceBusinessDayStep" data-ng-model="TaskModal.RecurrenceBusinessDayStep">
+                                        <option data-ng-repeat="dd in PatternRecurrence | filter:{Pattern:TaskModal.RecurrencePattern}" value="{{$index}}">{{dd.Name}}</option>
+                                    </select>
+
+                                </div>
+                            </p>
+                        </div>
+                        <div class="row">
+                            <p class="form-group ">
+
+                                <div class="col-md-4">
+                                    Task End Date
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input type="text" class="form-control" id="duedate" name="duedate" placeholder="Select End  Date"
+                                        data-ng-model="TaskModal.ercSubTaskDuedate" />
+
+                                </div>
+                            </p>
+                        </div>
+
+                        <div class="row">
+                            <p class="form-group ">
+
+                                <div class="col-md-4">
+                                    Customer
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input type="text" class="form-control" id="customer" name="customer" placeholder="Enter Customer"
+                                        data-ng-model="TaskModal.customer" />
+
+                                </div>
+                            </p>
+                        </div>
+                   
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" data-dismiss="modal" data-ng-disabled="form.$invalid" style="background-color: #55c4e8;" class="btn btn-default"
+                            data-ng-click="AddItem()">
+                            Create Task
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- *********************************create task Modal End************************************************************************************** -->
+    <!--**************************************************Task Edit Start****************************************************************************-->
+    <div class="modal fade" id="TaskEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+        <form id="form22" name="form22" role="form" novalidate>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #55c4e8;">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><font color="white"><b>Edit Task</b></font></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <p class="form-group" data-ng-class="{ 'has-error': form22.ercTaskTitle1.$error.required }">
+                                <div class="col-md-4">
+                                    Task Title
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" name="ercTaskTitle1" class="form-control" id="ercTaskTitle1" data-ng-required="true"
+                                        placeholder="Enter Task title" data-ng-model="TaskModal.ercTaskTitle1" tooltip="Enter Title" />
+                                    <span data-ng-show="form22.ercTaskTitle1.$error.required" class="alert alert-warning" style="padding: 0px !important;">Task title is required</span>
+                                </div>
+
+                            </p>
+                        </div>
+                       
+                        <div class="row">
+
+                            <p class="form-group " data-ng-class="{ 'has-error': form22.ercTaskDesc1.$error.required }">
+                                <div class="col-md-12">
+                                    <textarea class="form-control col-md-12" id="ercTaskDesc1" name="ercTaskDesc1" data-ng-required="true" placeholder="Enter Task Description"
+                                        data-ng-model="TaskModal.ercTaskDesc1" cols="250" rows="5"></textarea>
+                                    <span data-ng-show="form22.ercTaskDesc1.$error.required" class="alert alert-warning" style="padding: 0px !important;">Task description is required</span>
+                                </div>
+                            </p>
+                        </div>
+
+                        <div class="row">
+                            <p class="form-group ">
+
+                                <div class="col-md-6">
+                                    Recurrence Pattern
+                                </div>
+                                <div class="col-md-4">
+
+                                    <select class="form-control" id="RecurrencePattern1" data-ng-model="TaskModal.RecurrencePattern1"
+                                        data-ng-options="r1.Name as r1.Name for r1 in Pattern">
+                                    </select>
+
+
+                                </div>
+                            </p>
+                        </div>
+                        <div class="row">
+                            <p class="form-group ">
+
+                                <div class="col-md-6">
+                                    Recurrence Business Day Step
+                                </div>
+
+                                <div class="col-md-4">
+                                    <select class="form-control" id="RecurrenceBusinessDayStep1" data-ng-model="TaskModal.RecurrenceBusinessDayStep1">
+                                        <option data-ng-repeat="dd in PatternRecurrence | filter:{Pattern:TaskModal.RecurrencePattern1}" value="{{$index}}">{{dd.Name}}</option>
+                                    </select>
+
+                                </div>
+                            </p>
+                        </div>
+                        
+                     <div class="row">
+                            <p class="form-group ">
+
+                                <div class="col-md-4">
+                                    Task Due Date
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input type="text" class="form-control" id="subduedate1" name="subduedate1" placeholder="Select due Date"
+                                        data-ng-model="TaskModal.ercSubTaskDuedate1" />
+
+                                </div>
+                            </p>
+                        </div>
+                        <div class="row">
+                            <p class="form-group ">
+
+                                <div class="col-md-4">
+                                    Customer
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input type="text" class="form-control" id="customerEdit" name="customerEdit" placeholder="Enter Customer"
+                                        data-ng-model="TaskModal.customerEdit" />
+
+                                </div>
+                            </p>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal" data-ng-click="EditItem()">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--**************************************************Task Edit End****************************************************************************-->
+
+    <!-- ***********************************************Modal Delete alerts start******************************************************************************* -->
+    <div class="modal fade" id="TaskDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #55c4e8;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><font color="white"><b>Delete Confirmation</b></font></h4>
+                </div>
+                <div class="modal-body">
+                    Do You want to Delete?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal" data-ng-click="removeItem(index)">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***********************************************Modal Delete alerts End******************************************************************************* -->
+
+
+ <!-- ***********************************************Modal Meeting History start******************************************************************************* -->
+  <!--  <div class="modal fade" id="MeetingHistory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+
+        <div class="modal-admin">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #55c4e8;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><font color="white"><b>Meeting History</b></font></h4>
+                </div>                 
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#UserId</th>
+                            <th>EmployeeName</th>
+                            <th>MeetingDate</th>
+                            <th>MeetingDescription</th>
+                            <th>NextScheduledMeeting</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="x in MeetingHistory">
+                            <td>{{x.UserId}}</td>
+                            <td>{{x.DisplayName}}</td>
+                            <td>{{x.MeetingDate | date:'MMM-dd-yyyy'}}</td>
+                            <td>{{x.MeetingDescription}}</td>
+                            <td>{{x.NextScheduledMeeting}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="modal-footer">
+                    <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***********************************************Modal Meeting History End******************************************************************************* -->
+
+    <!-- Task Deatils-->
+    <div class="modal fade" id="TaskCalendarDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #55c4e8;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><font color="white"><b>Calendar Task Details</b></font></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="padding-left: 2px; margin-left: 5px; ">
+
+                        <div class="col-md-12" style="padding-left: 2px; margin-left: 5px;"><strong><span ng-show="ERCCalendar.Customer!= null">{{ERCCalendar.Customer}} -</span> {{ERCCalendar.CalendarTaskDetailTaskname}}</strong></div>
+                       <div class="col-md-12" style="padding-left: 2px; margin-left: 5px; overflow-y:scroll; height:auto;  max-height:300px;">
+
+                      
+                       <div class="col-md-12" style="padding-left: 2px; margin-left: 5px; " data-ng-repeat="d in ERCCalendar.CalendarTaskDetailDescription" >    
+                               
+                                    <div class="row" >
+                                        <div class="col-md-12" style="background-color:#def9fa;" data-ng-style="isFirstHeaderIndexChangeColor($first)"><b> {{d.DisplayName}} (   {{d.CreatedDate | date:'MMM-dd-yyyy' }} ) </b></div>
+                                       <div class="col-md-12" data-ng-style="isFirstIndexChangeColor($first)">  {{d.TaskDesc}} </div>
+                                    </div>
+                                 
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-left: 2px; margin-left: 5px;">
+                            <strong>Recurrence Pattern :</strong>  {{ERCCalendar.CalendarTaskDetailRecurrencePatternMsg}}
+                        </div>
+                         <div class="col-md-12" style="padding-left: 2px; margin-left: 5px;">
+                                <strong>Created Date :</strong> {{ERCCalendar.CreatedDate | date:'MM-dd-yyyy'}}
+                            </div>
+                        <div class="col-md-12" style="padding-left: 2px; margin-left: 5px;">
+                            <button id="btntag" class="btn btn-primary">Assigned User <span class=" badge">{{PushAssignUser.length}}</span></button>
+
+
+                            <button class="btn btn-primary" title="Task Assignment" data-toggle="modal" data-ng-click=" fncalendattaskdetail(TaskID, taskdetailtype)" style="height: 35px;"
+                                data-target="#TaskAssignment" aria-label="Task Assignment">
+                                <data-ng-md-icon icon="assignment" style="fill: #55c4e8"></data-ng-md-icon>
+                            </button>
+                        </div>
+
+                        <div data-ng-repeat="aa in PushAssignUser" style="vertical-align: top; padding-left: 2px; margin-left: 5px;">
+                            <a href="#AssignmentDelete" data-ng-show="UserModel.UserRole == 'admin' || UserModel.UserRole == 'manager' " data-target="#AssignmentDelete" data-ng-click="PopAssignment(aa.UserId, TaskID )"
+                                data-toggle="modal">
+                                <img src="/Content/images/cross.png" style="height: 12px; width: 12px;"
+                                    alt=" Delete Assignment" class="card-action " title="Delete Assignment" />
+                            </a>
+                            {{aa.DisplayName}}
+                        </div>
+                        <div class="col-md-12" style="padding-left: 2px; margin-left: 5px;">
+                            <button id="btntag" class="btn btn-primary">Tags <span class=" badge">{{PushTags.length}}</span></button>
+
+
+                            <button class="btn btn-primary" title="Tag" data-toggle="modal" data-ng-click="fnPopId(TaskID, '0')"
+                                data-target="#Tag" aria-label="Task Tag" style="height: 35px;">
+                                <data-ng-md-icon icon="tag_faces" style="fill: #55c4e8"></data-ng-md-icon>
+
+                            </button>
+                        </div>
+
+                        <div data-ng-repeat="td in PushTags" valign="top">
+                            <a href="#TagDelete" data-target="#TagDelete" data-ng-click="fnPopTagId(td.TagId,td.TaskId)"
+                                data-toggle="modal">
+                                <img src="/Content/images/cross.png" style="height: 12px; width: 12px;"
+                                    alt=" Delete Images" class="card-action " title="Delete Tag" />
+                            </a>
+                            {{td.tag}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Delete alerts -->
+    <!-- *********************************Modal Task Tags start************************************************************************************ -->
+    <div class="modal fade" id="Tag" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+        <form name="form33" role="form" novalidate>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #55c4e8;">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><font color="white"><b>Task Tag</b></font></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <p class="form-group">
+                                <div class="col-md-12">
+                                    Tag Description
+                                </div>
+                                <div class="col-md-12">
+                                    <textarea name="tags" cols="70" rows="5" class="form-control" data-ng-model="tagText"></textarea>
+                                </div>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal" data-ng-click="SaveTag()">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- *********************************Modal Task Tags End************************************************************************************ -->
+    <div class="modal fade" id="TagDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #55c4e8;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><font color="white"><b>Delete Confirmation</b></font></h4>
+                </div>
+                <div class="modal-body">
+                    Do You want to Delete tag?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal" data-ng-click="removeTag()">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Task Assignment -->
+    <div class="modal fade" id="TaskAssignment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+        <form name="form3" role="form" novalidate>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #55c4e8;">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><font color="white"><b>Task Assignment</b></font></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <p class="form-group">
+                                <div class="col-md-3">
+                                    Select User
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="col-md-6">
+                                        <select id="username" name="username" class="form-control" data-ng-model="userid"
+                                            data-ng-options="uu.UserId as uu.DisplayName for uu in UsersList | orderBy:'DisplayName'">
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" class="btn btn-primary" data-ng-click="AddUser()">Add</button></div>
+                                </div>
+
+                            </p>
+                            <button id="btntag" class="btn btn-primary">Assigned User <span class=" badge">{{PushAssignUser.length}}</span></button>
+                            <div data-ng-repeat="aa in PushAssignUser" style="vertical-align: top;">
+                                <a href="#AssignmentDelete" data-ng-show="UserModel.UserRole == 'admin' || UserModel.UserRole == 'manager'" data-target="#AssignmentDelete" data-ng-click="PopAssignment(aa.UserId, TaskID )"
+                                    data-toggle="modal">
+                                    <img src="/Content/images/cross.png" style="height: 12px; width: 12px;"
+                                        alt=" Delete Images" class="card-action " title="Delete Tag" />
+                                </a>
+                                {{aa.DisplayName}}
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal" data-ng-click="SaveAssignment()">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- Modal assignment user Delete alerts -->
+    <div class="modal fade" id="AssignmentDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #55c4e8;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><font color="white"><b>Delete Confirmation</b></font></h4>
+                </div>
+                <div class="modal-body">
+                    Do You want to Delete Assigned User?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" style="background-color: #55c4e8;" class="btn btn-default" data-dismiss="modal" data-ng-click="removeAssignment()">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function fnView(id) {
+            $("#a1").removeClass('btn btn-lg btn-info');
+            $("#a2").removeClass('btn btn-lg btn-info');
+            $("#a3").removeClass('btn btn-lg btn-info');
+
+            $("#a1").removeClass('btn btn-lg btn-default');
+            $("#a2").removeClass('btn btn-lg btn-default');
+            $("#a3").removeClass('btn btn-lg btn-default');
+
+            $("#a1").addClass('btn btn-lg btn-default');
+            $("#a2").addClass('btn btn-lg btn-default');
+            $("#a3").addClass('btn btn-lg btn-default');
+
+            $("#" + id).addClass('btn btn-lg btn-info');
+            if (id == 'a1') {
+                $("#CardView").show();
+                $("#TableView").hide();
+                $("#CalendarView").hide();
+            }
+            if (id == 'a2') {
+                $("#CardView").hide();
+                $("#TableView").show();
+                $("#CalendarView").hide();
+            }
+            if (id == 'a3') {
+                $("#CardView").hide();
+                $("#TableView").hide();
+                $("#CalendarView").show();
+            }
+        }
+        function fnMakeActive(id) {
+            $("#b1").removeClass('btn btn-lg btn-default');
+            $("#b2").removeClass('btn btn-lg btn-default');
+            $("#b3").removeClass('btn btn-lg btn-default');
+
+
+            $("#b1").removeClass('btn btn-lg btn-info');
+            $("#b2").removeClass('btn btn-lg btn-info');
+            $("#b3").removeClass('btn btn-lg btn-info');
+
+
+            $("#b1").addClass('btn btn-lg btn-default');
+            $("#b2").addClass('btn btn-lg btn-default');
+            $("#b3").addClass('btn btn-lg btn-default');
+
+
+            $("#" + id).addClass('btn btn-lg btn-info');
+            if (id == "b1") {
+
+                $("#DayView").show();
+                $("#WeekView").hide();
+                $("#MonthView").hide();
+            }
+            if (id == "b2") {
+                $("#DayView").hide();
+                $("#WeekView").show();
+                $("#MonthView").hide();
+            }
+            if (id == "b3") {
+                $("#DayView").hide();
+                $("#WeekView").hide();
+                $("#MonthView").show();
+            }
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,29 @@
+﻿
+<p style="padding-left:20px;margin-left:20px;">
+    <div class="row" style="padding-left:20px;margin-left:20px;">
+
+        <button type="button" class="btn btn-default btn-sm" data-ng-click="clkArrow('1')">
+            <span class="glyphicon glyphicon-chevron-left"></span> Prev
+        </button>
+        {{ViewLabel | date:'MMM-dd-yyyy'}}
+        <button type="button" class="btn btn-default btn-sm" data-ng-click="clkArrow('2')">
+            <span class="glyphicon glyphicon-chevron-right"></span> Next
+        </button>
+    </div>
+    <div class="col-md-4"></div>
+
+</p>
+<div class="clearfix"></div>
+<div class="row cb2" style="padding-left:20px;margin-left:20px;" data-ng-repeat="day in ERC_Day.PerDayTask | filter:CalenderSearchfilter">
+    <div class="col-md-4"><span ng-show="day.Customer!= null">{{day.Customer}} -</span>{{day.TaskName}}</div>
+    <div class="col-md-7">
+        {{day.TaskDesc}}
+    </div>
+    <div class="col-md-1" style="float:right !important;padding:2px;">
+        <button class="btn btn-default" style="height:35px;" title="Task Detail" data-toggle="modal" data-ng-click="fnCalendatTaskDetail(day.TaskId, '2')"
+                data-target="#TaskCalendarDetail" aria-label="Task Details">
+            <data-ng-md-icon icon="filter" style="fill:#55c4e8"></data-ng-md-icon>
+        </button>
+    </div>
+
+</div>

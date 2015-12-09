@@ -1,0 +1,14 @@
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\ERCTasks\bin\Debug\ERCTasks.exe.config
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\ERCTasks\bin\Debug\ERCTasks.exe
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\ERCTasks\bin\Debug\ERCTasks.pdb
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\ERCTasks\bin\Debug\Domain.dll
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\ERCTasks\bin\Debug\Domain.pdb
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\ERCTasks\bin\Debug\Dapper.pdb
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\ERCTasks\bin\Debug\Dapper.xml
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\ERCTasks\obj\Debug\ERCTasks.csprojResolveAssemblyReference.cache
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\ERCTasks\obj\Debug\ERCTasks.AddTask.resources
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\ERCTasks\obj\Debug\ERCTasks.Form1.resources
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\ERCTasks\obj\Debug\ERCTasks.Properties.Resources.resources
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\ERCTasks\obj\Debug\ERCTasks.csproj.GenerateResource.Cache
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\ERCTasks\obj\Debug\ERCTasks.exe
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\ERCTasks\obj\Debug\ERCTasks.pdb

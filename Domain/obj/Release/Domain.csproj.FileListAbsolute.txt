@@ -1,0 +1,6 @@
+E:\GitRepo_12_11_2015\ERCTasks\Domain\bin\Release\Domain.dll
+E:\GitRepo_12_11_2015\ERCTasks\Domain\bin\Release\Domain.pdb
+E:\GitRepo_12_11_2015\ERCTasks\Domain\bin\Release\Dapper.dll
+E:\GitRepo_12_11_2015\ERCTasks\Domain\obj\Release\Domain.csprojResolveAssemblyReference.cache
+E:\GitRepo_12_11_2015\ERCTasks\Domain\obj\Release\Domain.dll
+E:\GitRepo_12_11_2015\ERCTasks\Domain\obj\Release\Domain.pdb

@@ -1,0 +1,100 @@
+﻿
+<div >
+    <div >
+        <md-card class="card">
+            <md-card-content class="card-content">
+                <div id="accordion" class="panel-group" >
+                    <div class="panel panel-default" data-ng-repeat="tt in ERC.Tasks | filter:FilterCriteriaCardView" >
+                        <div  class="panel-heading" >
+                            <h4 class="panel-title" style="color:red;">
+                                <a href="#" class="clickable" data-target="#coll{{tt.TaskId}}" data-toggle="collapse" data-parent="#accordion" data-ng-click="getDetailTaskInfo(tt.TaskId)">
+
+                                    <b data-ng-style="isCurrentDateChangeColor(tt.TaskDueDate)"><span data-ng-show="tt.Customer!= null" >{{tt.Customer}} -</span> {{tt.TaskName}}   &nbsp;&nbsp; Assigned to {{tt.AssignedUserName}}</b>
+                                </a>
+                               
+                            </h4>
+                           
+                        </div>
+                        <div id="coll{{tt.TaskId}}" class="panel-collapse collapse" style="padding-left:15px;">
+                            <div  class="col-md-12" style="overflow-y:scroll;overflow-y:no-display; height:auto;  max-height:300px;">
+                            <div  data-ng-repeat="d in tt.Description">    
+                               
+                                    <div class="row">
+                                        <div class="col-md-12" style="background-color:#def9fa" data-ng-style="isFirstHeaderIndexChangeColor($first)"><b> {{d.DisplayName}} (   {{d.CreatedDate | date:'MMM-dd-yyyy' }} ) </b></div>
+                                       <div class="col-md-12" data-ng-style="isFirstIndexChangeColor($first)">  {{d.TaskDesc}} </div>
+                                    </div>
+                                 
+                            </div>
+                           </div>
+                            <div class="md-list-item-text">
+                                <strong> Recurrence Pattern :</strong> {{ RecurrencePatternText(tt.RecurrencePattern,tt.RecurrenceBusinessDayStep, tt.TaskDueHour, tt.TaskDueMinutes, tt.TaskDueDate)}}
+                            </div>
+                            <div class="md-list-item-text">
+                                <strong>Created Date :</strong> {{tt.CreatedDate | date :'MM-dd-yyyy' }}
+                            </div>
+
+                            <button id="btntag" class="btn btn-primary">Assigned User <span class=" badge">{{PushAssignUser.length}}</span></button>
+                            <div data-ng-repeat="aa in PushAssignUser" style="vertical-align:top;">
+                                <a href="#AssignmentDelete" data-ng-show="UserModel.UserRole == 'admin' || UserModel.UserRole == 'manager'" data-target="#AssignmentDelete" data-ng-click="PopAssignment(aa.UserId, tt.TaskId )"
+                                   data-toggle="modal">
+                                    <img src="/Content/images/cross.png" style="height:12px;width:12px;"
+                                         alt=" Delete Images" class="card-action " title="Delete Tag" />
+                                </a>
+                                {{aa.DisplayName}}
+                            </div>
+
+                            <button id="btntag" class="btn btn-primary">Tags <span class=" badge">{{PushTags.length}}</span></button>
+                            <div data-ng-repeat="td in PushTags" valign="top">
+                                <a href="#TagDelete" data-target="#TagDelete" data-ng-click="fnPopTagId(td.TagId, td.TaskId)"
+                                   data-toggle="modal">
+                                    <img src="/Content/images/cross.png" style="height:12px;width:12px;"
+                                         alt=" Delete Images" class="card-action " title="Delete Tag" />
+                                </a>
+                                {{td.tag}}
+                            </div>
+                            <div class="col-md-12">
+                                <div class="md-actions" layout="row" layout-align="end center">
+                                    <div>
+                                        <strong> Mark the task as complete </strong>
+                                        <input class="card-action" type="checkbox" name="chkMark{{tt.TaskId}}" ng-true-value="{{tt.TaskId}}" ng-false-value="0"
+                                               data-ng-change="MarkTaskComplete(tt.TaskId)" data-ng-model="MarkComplete.mark" ng-checked="selecetion.indexOf(tt.TaskId)>-1" /> &nbsp;&nbsp;
+                                    </div>
+                                    <md-button class="card-action" title="Tag" data-toggle="modal" data-ng-click="fnPopId(tt.TaskId,'0')"
+                                               data-target="#Tag" aria-label="Task Tag">
+                                        <data-ng-md-icon icon="tag_faces" style="fill:#55c4e8"></data-ng-md-icon>
+
+                                    </md-button>
+
+                                    <md-button class="card-action" title="Task Assignment" data-ng-show="UserModel.UserRole == 'admin' || UserModel.UserRole == 'manager'" data-toggle="modal" data-ng-click="fnPopAssign(tt.TaskId)"
+                                               data-target="#TaskAssignment" aria-label="Task Assignment">
+                                        <data-ng-md-icon icon="assignment" style="fill:#55c4e8"></data-ng-md-icon>
+                                    </md-button>
+
+                                    <md-button class="card-action" title="Edit Task" data-toggle="modal" data-ng-click="GetTaskDetail(tt.TaskId)"
+                                               data-target="#TaskEdit" aria-label="Edit Task">
+                                        <data-ng-md-icon icon="create" style="fill:#55c4e8"></data-ng-md-icon>
+
+                                    </md-button>
+                                    <md-button class="card-action" title="Delete Task" data-ng-show="UserModel.UserRole == 'admin' || UserModel.UserRole == 'manager'" data-ng-click="fnPopId(tt.TaskId, '0')"
+                                               data-toggle="modal" data-target="#TaskDelete" aria-label="Delete Task">
+                                        <data-ng-md-icon icon="backspace" style="fill:#55c4e8"></data-ng-md-icon>
+
+                                    </md-button>
+
+                                    <!-- <md-button class="card-action" title="Meeting History" data-ng-show="UserModel.UserRole == 'admin' || UserModel.UserRole == 'manager'" data-ng-click="MeetingHistory(UserModel.UserId)"
+                                               data-toggle="modal" data-target="#MeetingHistory" aria-label="Meeting History">
+                                        <data-ng-md-icon icon="chat" style="fill:#55c4e8"></data-ng-md-icon>
+
+                                    </md-button>-->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+</div>
+</md-card-content>
+        </md-card>
+
+    </div>
+
+</div>

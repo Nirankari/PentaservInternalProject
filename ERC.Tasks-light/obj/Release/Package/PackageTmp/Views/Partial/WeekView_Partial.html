@@ -1,0 +1,88 @@
+﻿
+<p style="padding-left:20px;margin-left:20px;">
+    <div class="row" style="padding-left:20px;margin-left:20px;">
+
+        <button type="button" class="btn btn-default btn-sm" data-ng-click="clkArrowWeek('1')">
+            <span class="glyphicon glyphicon-chevron-left"></span> Prev
+        </button>
+        {{currentstartofweek | date:'MMM-dd-yyyy'}} - {{currentendofweek | date:'MMM-dd-yyyy'}}
+        <button type="button" class="btn btn-default btn-sm" data-ng-click="clkArrowWeek('2')">
+            <span class="glyphicon glyphicon-chevron-right"></span> Next
+        </button>
+    </div>
+    <div class="col-md-4"></div>
+
+</p>
+
+<div class="clearfix"></div>
+<div class="row">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="background-color:#55c4e8;">
+                    <th style="width:14%"><font color="white">Sunday</font></th>
+                    <th style="width:14%"><font color="white">Monday</font></th>
+                    <th style="width:14%"><font color="white">Tuesday</font></th>
+                    <th style="width:14%"><font color="white">Wednesday</font></th>
+                    <th style="width:14%"><font color="white">Thursday</font></th>
+                    <th style="width:14%"><font color="white">Friday</font></th>
+                    <th style="width:14%"><font color="white">Saturday</font></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="cb">
+                        <div data-ng-repeat="d in PerWeekTask[0] | filter : WeekCalendarFilterTask" class="cb1">
+                            <a href="#TaskCalendarDetail" data-target="#TaskCalendarDetail" data-ng-click="fnCalendatTaskDetail(d.TaskId, '2')"
+                               data-toggle="modal"><span ng-show="d.Customer!= null">{{d.Customer}} -</span>{{d.TaskName}}</a>
+
+                        </div>
+                    </td>
+                    <td class="cb">
+                        <div data-ng-repeat="d in PerWeekTask[1] | filter : WeekCalendarFilterTask" class="cb1">
+                            <a href="#TaskCalendarDetail" data-target="#TaskCalendarDetail" data-ng-click="fnCalendatTaskDetail(d.TaskId, '2')"
+                               data-toggle="modal"><span ng-show="d.Customer!= null">{{d.Customer}} -</span>{{d.TaskName}}</a>
+
+                        </div>
+                    </td>
+                    <td class="cb">
+                        <div data-ng-repeat="d in PerWeekTask[2] | filter : WeekCalendarFilterTask" class="cb1">
+                            <a href="#TaskCalendarDetail" data-target="#TaskCalendarDetail" data-ng-click="fnCalendatTaskDetail(d.TaskId, '2')"
+                               data-toggle="modal"><span ng-show="d.Customer!= null">{{d.Customer}} -</span>{{d.TaskName}}</a>
+
+                        </div>
+                    </td>
+                    <td class="cb">
+                        <div data-ng-repeat="d in PerWeekTask[3] | filter : WeekCalendarFilterTask" class="cb1">
+                            <a href="#TaskCalendarDetail" data-target="#TaskCalendarDetail"
+                               data-ng-click="fnCalendatTaskDetail(d.TaskId, '2')" data-toggle="modal"><span ng-show="d.Customer!= null">{{d.Customer}} -</span>{{d.TaskName}}</a>
+
+                        </div>
+                    </td>
+                    <td class="cb">
+                        <div data-ng-repeat="d in PerWeekTask[4] | filter : WeekCalendarFilterTask" class="cb1">
+                            <a href="#TaskCalendarDetail" data-target="#TaskCalendarDetail" data-ng-click="fnCalendatTaskDetail(d.TaskId, '2')"
+                               data-toggle="modal"><span ng-show="d.Customer!= null">{{d.Customer}} -</span>{{d.TaskName}}</a>
+
+                        </div>
+                    </td>
+                    <td class="cb">
+                        <div data-ng-repeat="d in PerWeekTask[5] | filter : WeekCalendarFilterTask" class="cb1">
+                            <a href="#TaskCalendarDetail" data-target="#TaskCalendarDetail" data-ng-click="fnCalendatTaskDetail(d.TaskId, '2')"
+                               data-toggle="modal"><span ng-show="d.Customer!= null">{{d.Customer}} -</span>{{d.TaskName}}</a>
+
+                        </div>
+                    </td>
+                    <td class="cb">
+                        <div data-ng-repeat="d in PerWeekTask[6] | filter : WeekCalendarFilterTask" class="cb1">
+                            <a href="#TaskCalendarDetail" data-target="#TaskCalendarDetail" data-ng-click="fnCalendatTaskDetail(d.TaskId, '2')"
+                               data-toggle="modal"><span ng-show="d.Customer!= null">{{d.Customer}} -</span>{{d.TaskName}}</a>
+
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

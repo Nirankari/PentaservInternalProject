@@ -1,0 +1,9 @@
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\TasksDriver\bin\Debug\TasksDriver.exe.config
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\TasksDriver\bin\Debug\TasksDriver.exe
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\TasksDriver\bin\Debug\TasksDriver.pdb
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\TasksDriver\bin\Debug\Domain.dll
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\TasksDriver\bin\Debug\Dapper.dll
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\TasksDriver\bin\Debug\Domain.pdb
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\TasksDriver\obj\Debug\TasksDriver.csprojResolveAssemblyReference.cache
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\TasksDriver\obj\Debug\TasksDriver.exe
+D:\shrikant\TFS\ERCProjects\ERC.Utilities\ERC.Tasks-light-merge\TasksDriver\obj\Debug\TasksDriver.pdb
